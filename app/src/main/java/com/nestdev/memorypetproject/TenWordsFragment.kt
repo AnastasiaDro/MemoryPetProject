@@ -59,14 +59,14 @@ class TenWordsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initTextViewArrays(view)
+        initTextViewArrays()
         setClickListeners()
         viewModel.counterData.observe(viewLifecycleOwner) {
             currentTextView.text = it.toString()
         }
     }
 
-    private fun initTextViewArrays(view: View) {
+    private fun initTextViewArrays() {
         with(binding) {
             wordsTextViewArray = arrayOf(word0, word1, word2, word3, word4, word5, word6, word7, word8, word9)
             tiral0Array = arrayOf(trial00, trial01, trial02, trial03, trial04, trial05, trial06, trial07, trial08, trial09)
