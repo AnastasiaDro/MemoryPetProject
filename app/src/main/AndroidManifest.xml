@@ -18,6 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:authorities="com.nestdev.memorypetproject"
+            android:name=".MyContentProvider"
+            android:exported="false"
+            android:grantUriPermissions="true"/>
     </application>
 
 </manifest>
