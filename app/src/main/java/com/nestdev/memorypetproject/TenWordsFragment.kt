@@ -21,6 +21,7 @@ class TenWordsFragment : Fragment() {
     private lateinit var tableRowList: MutableList<TableRow>
     private var counter = 0
     private var currentWordIndex = -1
+    private lateinit var currentTextView: TextView
 
     /**
      * Слова
@@ -59,6 +60,10 @@ class TenWordsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initTextViewArrays(view)
+        setClickListeners()
+        viewModel.counterData.observe(viewLifecycleOwner) {
+            currentTextView.text = it.toString()
+        }
     }
 
     private fun initTextViewArrays(view: View) {
@@ -69,7 +74,22 @@ class TenWordsFragment : Fragment() {
             tiral2Array = arrayOf(trial20, trial21, trial22, trial23, trial24, trial25, trial26, trial27, trial28, trial29)
             tiral3Array = arrayOf(trial30, trial31, trial32, trial33, trial34, trial35, trial36, trial37, trial38, trial39)
             deferredTrialArray = arrayOf(deferred0, deferred1, deferred2, deferred3, deferred4, deferred5, deferred6, deferred7, deferred8, deferred9)
+        }
+    }
 
+    private fun setClickListeners() {
+        setClickListenerToArrayElems(tiral0Array)
+        setClickListenerToArrayElems(tiral1Array)
+        setClickListenerToArrayElems(tiral2Array)
+        setClickListenerToArrayElems(tiral3Array)
+        setClickListenerToArrayElems(deferredTrialArray)
+    }
+
+    private fun setClickListenerToArrayElems(arr: Array<TextView>) {
+        arr.forEach {  it ->
+            it.setOnClickListener {
+                currentTextView = it as TextView
+                viewModel.onTextViewPressed() }
         }
     }
 

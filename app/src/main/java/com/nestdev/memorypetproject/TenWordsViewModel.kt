@@ -2,6 +2,7 @@ package com.nestdev.memorypetproject
 
 import android.content.Context
 import android.view.View
+import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,8 +16,8 @@ class TenWordsViewModel : ViewModel() {
 
     var counter = 0
 
-    fun onButtonPressed() {
-        mutableCounterData.setValue(++counter)
+    fun onTextViewPressed() {
+        mutableCounterData.value = ++counter
     }
 
     companion object {
