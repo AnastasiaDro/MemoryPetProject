@@ -18,4 +18,8 @@ class TenWordsViewModel : ViewModel() {
     fun onButtonPressed() {
         mutableCounterData.setValue(++counter)
     }
+
+    companion object {
+        fun create() = TenWordsViewModel()
+    }
 }
