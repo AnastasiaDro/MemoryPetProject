@@ -10,7 +10,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.nestdev.memorypetproject.databinding.FragmentTenWordsBinding
+import kotlinx.coroutines.launch
 
 class TenWordsFragment : Fragment() {
     private val viewModel by viewModels<TenWordsViewModel>()
@@ -63,6 +65,25 @@ class TenWordsFragment : Fragment() {
         setClickListeners()
         viewModel.counterData.observe(viewLifecycleOwner) {
             currentTextView.text = it.toString()
+        }
+        lifecycleScope.launch {
+            viewModel.isCursorReadyFlow.collect {
+                if (it) {
+                    viewModel.getWordsSet(0)
+                }
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.listWordsFlow.collect {
+                updateWordsSet(it)
+            }
+        }
+        viewModel.getCursor(view.context)
+    }
+
+    private fun updateWordsSet(wordsArray: MutableList<String?>?) {
+        for (index in wordsTextViewArray.indices) {
+            wordsTextViewArray[index].text = wordsArray?.get(index) ?: "null"
         }
     }
 
