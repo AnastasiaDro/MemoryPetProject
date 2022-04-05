@@ -39,7 +39,7 @@ class TenWordsViewModel : ViewModel() {
     fun getWordsSet(rowNumber: Int) {
         viewModelScope.launch {
             cursor?.moveToFirst()
-            while (cursor != null && cursor?.getInt(0) != rowNumber) {
+            while (cursor != null || cursor?.getInt(0) != rowNumber) {
                 cursor?.moveToNext()
             }
             if (cursor != null) {
