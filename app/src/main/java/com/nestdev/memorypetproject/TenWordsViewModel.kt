@@ -9,11 +9,12 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.sql.Types.NULL
 
 
 class TenWordsViewModel : ViewModel() {
     private var cursor: Cursor? = null
-    private var wordsArray : MutableList<String?>? = null
+    private var wordsArray : MutableList<String?>? = ArrayList()
     private val mutableIsCursorReadyFlow = MutableStateFlow<Boolean>(false)
     val isCursorReadyFlow: StateFlow<Boolean> = mutableIsCursorReadyFlow
     private val mutableListWordsFlow = MutableStateFlow<MutableList<String?>?>(null)
@@ -32,6 +33,10 @@ class TenWordsViewModel : ViewModel() {
                 arrayOf(MyContentProvider._ID, MyContentProvider.wordsList[0], MyContentProvider.wordsList[1], MyContentProvider.wordsList[2],
                     MyContentProvider.wordsList[3], MyContentProvider.wordsList[4], MyContentProvider.wordsList[5], MyContentProvider.wordsList[6],
                     MyContentProvider.wordsList[7], MyContentProvider.wordsList[8], MyContentProvider.wordsList[9]), null, null, MyContentProvider._ID)
+            if(cursor == null) {
+                println("NULL!!!!!")
+            }
+
             mutableIsCursorReadyFlow.emit(true)
         }
     }
@@ -39,11 +44,14 @@ class TenWordsViewModel : ViewModel() {
     fun getWordsSet(rowNumber: Int) {
         viewModelScope.launch {
             cursor?.moveToFirst()
-            while (cursor != null || cursor?.getInt(0) != rowNumber) {
-                cursor?.moveToNext()
-            }
+//            while (cursor?.getInt(0) != 1) {
+//                println(cursor?.getInt(0))
+//                if(cursor?.moveToNext() == false)
+//                    break
+  //          }
             if (cursor != null) {
                 for (i in 0..9) {
+                    println(cursor?.getString(i + 1))
                     wordsArray?.add(i, cursor?.getString(i + 1))
                 }
             }
