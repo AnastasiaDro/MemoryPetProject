@@ -54,12 +54,8 @@ class TenWordsViewModel : ViewModel() {
 
 
     fun onTextViewPressed() {
-        mutableCounterData.value = ++counter
+        if (counter < 10)
+            counter++
+        mutableCounterData.value = counter
     }
-
-
-    companion object {
-        fun create() = TenWordsViewModel()
-    }
-
 }

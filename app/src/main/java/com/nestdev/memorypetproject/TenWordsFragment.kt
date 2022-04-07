@@ -63,9 +63,18 @@ class TenWordsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initTextViewArrays()
         setClickListeners()
+        val unCheckedWord = getString(R.string.forgotten_word)
         viewModel.counterData.observe(viewLifecycleOwner) {
-            currentTextView.text = it.toString()
+            if (currentTextView.text == unCheckedWord) {
+                currentTextView.text = it.toString()
+            } else {
+                currentTextView.text = unCheckedWord
+                println(viewModel.counter)
+                viewModel.counter-=2
+                println(viewModel.counter)
+            }
         }
+
         lifecycleScope.launch {
             viewModel.isCursorReadyFlow.collect {
                 if (it) {
