@@ -9,7 +9,7 @@ import android.net.Uri
 class MyContentProvider : ContentProvider() {
     companion object {
         val PROVIDER_NAME = "com.nestdev.memorypetproject/MyContentProvider"
-        val URL = "content://$PROVIDER_NAME/ACTABLE"
+        val URL = "content://$PROVIDER_NAME/WORDS_SET_TABLE"
         val CONTENT_URI = Uri.parse(URL)
 
         val _ID = "_id"
