@@ -69,7 +69,8 @@ class TenWordsFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.isCursorReadyFlow.collect {
                 if (it) {
-                    viewModel.getWordsSet(0)
+                    //TODO: rowNumber по умолчанию будет ноль, но в меню можно будет менять список
+                    viewModel.getWordsSet(1)
                 }
             }
         }
@@ -113,8 +114,6 @@ class TenWordsFragment : Fragment() {
                 viewModel.onTextViewPressed() }
         }
     }
-
-
 
     companion object {
         fun create() = TenWordsFragment()

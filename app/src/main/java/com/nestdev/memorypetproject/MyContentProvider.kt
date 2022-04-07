@@ -13,7 +13,7 @@ class MyContentProvider : ContentProvider() {
         val CONTENT_URI = Uri.parse(URL)
 
         val _ID = "_id"
-        val wordsList = listOf<String>("WORD_0", "WORD_1", "WORD_2", "WORD_3", "WORD_4", "WORD_5", "WORD_6", "WORD_7", "WORD_8", "WORD_9")
+        val wordsList = listOf("WORD_0", "WORD_1", "WORD_2", "WORD_3", "WORD_4", "WORD_5", "WORD_6", "WORD_7", "WORD_8", "WORD_9")
 
 
     }

@@ -33,10 +33,6 @@ class TenWordsViewModel : ViewModel() {
                 arrayOf(MyContentProvider._ID, MyContentProvider.wordsList[0], MyContentProvider.wordsList[1], MyContentProvider.wordsList[2],
                     MyContentProvider.wordsList[3], MyContentProvider.wordsList[4], MyContentProvider.wordsList[5], MyContentProvider.wordsList[6],
                     MyContentProvider.wordsList[7], MyContentProvider.wordsList[8], MyContentProvider.wordsList[9]), null, null, MyContentProvider._ID)
-            if(cursor == null) {
-                println("NULL!!!!!")
-            }
-
             mutableIsCursorReadyFlow.emit(true)
         }
     }
@@ -44,11 +40,8 @@ class TenWordsViewModel : ViewModel() {
     fun getWordsSet(rowNumber: Int) {
         viewModelScope.launch {
             cursor?.moveToFirst()
-//            while (cursor?.getInt(0) != 1) {
-//                println(cursor?.getInt(0))
-//                if(cursor?.moveToNext() == false)
-//                    break
-  //          }
+            for (i in 0 until rowNumber) //сеты слов будут нумероваться с 1
+                cursor?.moveToNext()
             if (cursor != null) {
                 for (i in 0..9) {
                     println(cursor?.getString(i + 1))
