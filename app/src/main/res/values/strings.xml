@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MemoryPetProject</string>
+    <string name="finish_trial">Строка</string>
+    <string name="forgotten_word">null</string>
 </resources>

@@ -9,13 +9,12 @@ const val DB_NAME = "MEMORY_TESTS"
 class SQLiteHelper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, 1) {
 
     /**
-     * Создать и заполнить таблицу
+     * Создать и заполнить таблицы
      */
     override fun onCreate(db: SQLiteDatabase?) {
         createWordsSetTable(db)
         createResultsTable(db)
     }
-
 
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
         TODO("Not yet implemented")

@@ -7,19 +7,22 @@
     android:padding="@dimen/table_padding">
 
     <TableLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/trial_table"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/table_padding_horizontal"
         android:gravity="center"
         android:padding="@dimen/table_padding"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/button"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TableRow
             android:id="@+id/words_row"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/columns_padding_horizontal"
             android:gravity="center"
             android:padding="@dimen/table_padding">
 
@@ -27,59 +30,71 @@
                 android:id="@+id/word0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/word1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/word2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
+
             <TextView
                 android:id="@+id/word3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/word4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/word5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
+
             <TextView
                 android:id="@+id/word6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/word7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/word8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/word9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
         </TableRow>
 
         <TableRow
@@ -87,64 +102,78 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:layout_margin="@dimen/columns_padding_horizontal"
             android:padding="@dimen/table_padding">
+
             <TextView
                 android:id="@+id/trial0_0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/trial0_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/trial0_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
+
             <TextView
                 android:id="@+id/trial0_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/trial0_4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/trial0_5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
+
             <TextView
                 android:id="@+id/trial0_6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/trial0_7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/trial0_8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/trial0_9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
         </TableRow>
 
         <TableRow
@@ -152,64 +181,78 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:layout_margin="@dimen/columns_padding_horizontal"
             android:padding="@dimen/table_padding">
+
             <TextView
                 android:id="@+id/trial1_0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/trial1_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/trial1_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
+
             <TextView
                 android:id="@+id/trial1_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/trial1_4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/trial1_5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
+
             <TextView
                 android:id="@+id/trial1_6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/trial1_7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/trial1_8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/trial1_9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
         </TableRow>
 
         <TableRow
@@ -217,65 +260,78 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="@dimen/table_padding">
+            android:padding="@dimen/table_padding"
+            android:layout_margin="@dimen/columns_padding_horizontal">
 
-        <TextView
-            android:id="@+id/trial2_0"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            <TextView
+                android:id="@+id/trial2_0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
-        <TextView
-            android:id="@+id/trial2_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            <TextView
+                android:id="@+id/trial2_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
-        <TextView
-            android:id="@+id/trial2_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-        <TextView
-            android:id="@+id/trial2_3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            <TextView
+                android:id="@+id/trial2_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
-        <TextView
-            android:id="@+id/trial2_4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            <TextView
+                android:id="@+id/trial2_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
-        <TextView
-            android:id="@+id/trial2_5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-        <TextView
-            android:id="@+id/trial2_6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            <TextView
+                android:id="@+id/trial2_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
-        <TextView
-            android:id="@+id/trial2_7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            <TextView
+                android:id="@+id/trial2_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
-        <TextView
-            android:id="@+id/trial2_8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            <TextView
+                android:id="@+id/trial2_6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
-        <TextView
-            android:id="@+id/trial2_9"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            <TextView
+                android:id="@+id/trial2_7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
+
+            <TextView
+                android:id="@+id/trial2_8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
+
+            <TextView
+                android:id="@+id/trial2_9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
         </TableRow>
 
         <TableRow
@@ -283,64 +339,78 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="@dimen/table_padding">
+            android:padding="@dimen/table_padding"
+            android:layout_margin="@dimen/columns_padding_horizontal">
+
             <TextView
                 android:id="@+id/trial3_0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/trial3_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/trial3_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
+
             <TextView
                 android:id="@+id/trial3_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/trial3_4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/trial3_5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
+
             <TextView
                 android:id="@+id/trial3_6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/trial3_7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/trial3_8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/trial3_9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
         </TableRow>
 
         <TableRow
@@ -348,67 +418,92 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="@dimen/table_padding">
+            android:padding="@dimen/table_padding"
+            android:layout_margin="@dimen/columns_padding_horizontal">
 
             <TextView
                 android:id="@+id/deferred_0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/deferred_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/deferred_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
+
             <TextView
                 android:id="@+id/deferred_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/deferred_4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/deferred_5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
+
             <TextView
                 android:id="@+id/deferred_6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/deferred_7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/deferred_8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
 
             <TextView
                 android:id="@+id/deferred_9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginHorizontal="@dimen/columns_padding_horizontal"
+                android:text="@string/forgotten_word" />
         </TableRow>
 
     </TableLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/table_padding_horizontal"
+        android:text="@string/finish_trial"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/trial_table"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
