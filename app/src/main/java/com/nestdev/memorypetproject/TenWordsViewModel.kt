@@ -13,12 +13,19 @@ import java.sql.Types.NULL
 
 
 class TenWordsViewModel : ViewModel() {
-    private var cursor: Cursor? = null
+    private var wordsCursor: Cursor? = null
+    private var resultsCursor: Cursor? = null
+    private var resultsArray = Array(5) { 0 }
+    private var resultsIndex = 0
     private var wordsArray : MutableList<String?>? = ArrayList()
     private val mutableIsCursorReadyFlow = MutableStateFlow<Boolean>(false)
     val isCursorReadyFlow: StateFlow<Boolean> = mutableIsCursorReadyFlow
     private val mutableListWordsFlow = MutableStateFlow<MutableList<String?>?>(null)
     val listWordsFlow: StateFlow<MutableList<String?>?> = mutableListWordsFlow
+
+    private val mutableActiveTrialLiveData by lazy {
+        MutableLiveData<Int>()
+    }
 
     private val mutableCounterData by lazy {
         MutableLiveData<Int>()
@@ -26,29 +33,44 @@ class TenWordsViewModel : ViewModel() {
     val counterData : LiveData<Int> = mutableCounterData
     var counter = 0
 
-
-    fun getCursor(context: Context) {
+    fun getWordsCursor(context: Context) {
         viewModelScope.launch {
-            cursor = context.contentResolver.query(MyContentProvider.CONTENT_URI,
-                arrayOf(MyContentProvider._ID, MyContentProvider.wordsList[0], MyContentProvider.wordsList[1], MyContentProvider.wordsList[2],
-                    MyContentProvider.wordsList[3], MyContentProvider.wordsList[4], MyContentProvider.wordsList[5], MyContentProvider.wordsList[6],
-                    MyContentProvider.wordsList[7], MyContentProvider.wordsList[8], MyContentProvider.wordsList[9]), null, null, MyContentProvider._ID)
+            wordsCursor = context.contentResolver.query(WordsContentProvider.CONTENT_URI,
+                arrayOf(WordsContentProvider._ID, WordsContentProvider.wordsList[0], WordsContentProvider.wordsList[1], WordsContentProvider.wordsList[2],
+                    WordsContentProvider.wordsList[3], WordsContentProvider.wordsList[4], WordsContentProvider.wordsList[5], WordsContentProvider.wordsList[6],
+                    WordsContentProvider.wordsList[7], WordsContentProvider.wordsList[8], WordsContentProvider.wordsList[9]), null, null, WordsContentProvider._ID)
             mutableIsCursorReadyFlow.emit(true)
         }
+//        viewModelScope.launch {
+//            resultsCursor = context.contentResolver.query(WordsContentProvider.CONTENT_URI,
+//                arrayOf(WordsContentProvider._ID, WordsContentProvider.)
+//                )
+//        }
     }
 
     fun getWordsSet(rowNumber: Int) {
         viewModelScope.launch {
-            cursor?.moveToFirst()
+            wordsCursor?.moveToFirst()
             for (i in 0 until rowNumber) //сеты слов будут нумероваться с 1
-                cursor?.moveToNext()
-            if (cursor != null) {
+                wordsCursor?.moveToNext()
+            if (wordsCursor != null) {
                 for (i in 0..9) {
-                    println(cursor?.getString(i + 1))
-                    wordsArray?.add(i, cursor?.getString(i + 1))
+                    println(wordsCursor?.getString(i + 1))
+                    wordsArray?.add(i, wordsCursor?.getString(i + 1))
                 }
             }
             mutableListWordsFlow.emit(wordsArray)
+        }
+        viewModelScope.launch {
+            resultsCursor
+        }
+    }
+
+
+
+    fun onStringFinishingPressed(result: Int) {
+        if (resultsIndex < 5)  {
+            resultsArray[resultsIndex] = result
         }
     }
 
@@ -58,4 +80,10 @@ class TenWordsViewModel : ViewModel() {
             counter++
         mutableCounterData.value = counter
     }
+
+    fun finishTrial() {
+        counter = 0
+
+    }
+
 }

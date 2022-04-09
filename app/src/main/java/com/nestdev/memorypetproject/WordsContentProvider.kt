@@ -6,7 +6,7 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.net.Uri
 
-class MyContentProvider : ContentProvider() {
+class WordsContentProvider : ContentProvider() {
     companion object {
         val PROVIDER_NAME = "com.nestdev.memorypetproject/MyContentProvider"
         val URL = "content://$PROVIDER_NAME/WORDS_SET_TABLE"
@@ -14,9 +14,8 @@ class MyContentProvider : ContentProvider() {
 
         val _ID = "_id"
         val wordsList = listOf("WORD_0", "WORD_1", "WORD_2", "WORD_3", "WORD_4", "WORD_5", "WORD_6", "WORD_7", "WORD_8", "WORD_9")
-
-
     }
+
     lateinit var db: SQLiteDatabase
 
     override fun onCreate(): Boolean {

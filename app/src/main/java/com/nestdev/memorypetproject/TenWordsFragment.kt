@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
@@ -22,8 +23,10 @@ class TenWordsFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var tableRowList: MutableList<TableRow>
     private var counter = 0
+    private var trialCounter = 0
     private var currentWordIndex = -1
     private lateinit var currentTextView: TextView
+    private lateinit var finishTrialBtn: Button
 
     /**
      * Слова
@@ -44,6 +47,10 @@ class TenWordsFragment : Fragment() {
      */
     private lateinit var deferredTrialArray: Array<TextView>
 
+    /**
+     * Массив строк всех проб
+     */
+    private lateinit var allTrialsArray: Array<Array<TextView>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,8 +68,10 @@ class TenWordsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initButtons()
         initTextViewArrays()
-        setClickListeners()
+        setTableClickListeners()
+        makeCurrentClickable(trialCounter)
         val unCheckedWord = getString(R.string.forgotten_word)
         viewModel.counterData.observe(viewLifecycleOwner) {
             if (currentTextView.text == unCheckedWord) {
@@ -88,7 +97,7 @@ class TenWordsFragment : Fragment() {
                 updateWordsSet(it)
             }
         }
-        viewModel.getCursor(view.context)
+        viewModel.getWordsCursor(view.context)
     }
 
     private fun updateWordsSet(wordsArray: MutableList<String?>?) {
@@ -105,15 +114,31 @@ class TenWordsFragment : Fragment() {
             tiral2Array = arrayOf(trial20, trial21, trial22, trial23, trial24, trial25, trial26, trial27, trial28, trial29)
             tiral3Array = arrayOf(trial30, trial31, trial32, trial33, trial34, trial35, trial36, trial37, trial38, trial39)
             deferredTrialArray = arrayOf(deferred0, deferred1, deferred2, deferred3, deferred4, deferred5, deferred6, deferred7, deferred8, deferred9)
+            allTrialsArray = arrayOf(tiral0Array, tiral1Array, tiral2Array, tiral3Array, deferredTrialArray)
         }
     }
 
-    private fun setClickListeners() {
-        setClickListenerToArrayElems(tiral0Array)
-        setClickListenerToArrayElems(tiral1Array)
-        setClickListenerToArrayElems(tiral2Array)
-        setClickListenerToArrayElems(tiral3Array)
-        setClickListenerToArrayElems(deferredTrialArray)
+    private fun makeCurrentClickable(trialNum: Int) {
+        if (trialNum < 5) {
+            if (trialNum > 0)
+                allTrialsArray[trialNum - 1].forEach { it.isClickable = false }
+            allTrialsArray[trialNum].forEach { it.isClickable = true }
+        }
+    }
+
+    private fun setTableClickListeners() {
+        allTrialsArray.forEach { setClickListenerToArrayElems(it) }
+    }
+
+    private fun initButtons() {
+        with(binding) {
+            finishStringBtn.setOnClickListener {
+                makeCurrentClickable(trialCounter)
+                trialCounter++
+                viewModel.finishTrial()
+            }
+        }
+
     }
 
     private fun setClickListenerToArrayElems(arr: Array<TextView>) {
@@ -121,6 +146,7 @@ class TenWordsFragment : Fragment() {
             it.setOnClickListener {
                 currentTextView = it as TextView
                 viewModel.onTextViewPressed() }
+            it.isClickable = false
         }
     }
 
