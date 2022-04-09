@@ -33,7 +33,7 @@ class TenWordsViewModel : ViewModel() {
     val counterData : LiveData<Int> = mutableCounterData
     var counter = 0
 
-    fun getWordsCursor(context: Context) {
+    fun getCursors(context: Context) {
         viewModelScope.launch {
             wordsCursor = context.contentResolver.query(WordsContentProvider.CONTENT_URI,
                 arrayOf(WordsContentProvider._ID, WordsContentProvider.wordsList[0], WordsContentProvider.wordsList[1], WordsContentProvider.wordsList[2],
@@ -41,9 +41,10 @@ class TenWordsViewModel : ViewModel() {
                     WordsContentProvider.wordsList[7], WordsContentProvider.wordsList[8], WordsContentProvider.wordsList[9]), null, null, WordsContentProvider._ID)
             mutableIsCursorReadyFlow.emit(true)
         }
+        //TODO
 //        viewModelScope.launch {
-//            resultsCursor = context.contentResolver.query(WordsContentProvider.CONTENT_URI,
-//                arrayOf(WordsContentProvider._ID, WordsContentProvider.)
+//            resultsCursor = context.contentResolver.query(TrialsResultsContentProvider.CONTENT_URI,
+//                arrayOf(WordsContentProvider._ID, TrialsResultsContentProvider.)
 //                )
 //        }
     }
@@ -71,6 +72,9 @@ class TenWordsViewModel : ViewModel() {
     fun onStringFinishingPressed(result: Int) {
         if (resultsIndex < 5)  {
             resultsArray[resultsIndex] = result
+            resultsIndex++
+        } else {
+            //TODO отправить в базу данных
         }
     }
 
