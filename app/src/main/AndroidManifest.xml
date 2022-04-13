@@ -21,13 +21,8 @@
 
         <provider
             android:authorities="com.nestdev.memorypetproject"
-            android:name=".WordsContentProvider"
+            android:name=".DatabaseContentProvider"
             android:exported="false"
-            android:grantUriPermissions="true"/>
-        <provider
-            android:authorities="com.nestdev.memorypetproject"
-            android:name=".TrialsResultsContentProvider"
-            android:exported="true"
             android:grantUriPermissions="true"/>
     </application>
 
