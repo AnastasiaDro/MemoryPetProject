@@ -17,6 +17,7 @@ class DatabaseContentProvider : ContentProvider() {
 
         val _ID = "_id"
         val wordsList = listOf("WORD_0", "WORD_1", "WORD_2", "WORD_3", "WORD_4", "WORD_5", "WORD_6", "WORD_7", "WORD_8", "WORD_9")
+        val trialsColumnList = listOf("NAME", "SURNAME", "BIRTHDAY", "DATE", "TRIAL_0", "TRIAL_1", "TRIAL_2", "TRIAL_3", "TRIAL_DEFERRED")
     }
 
     lateinit var db: SQLiteDatabase

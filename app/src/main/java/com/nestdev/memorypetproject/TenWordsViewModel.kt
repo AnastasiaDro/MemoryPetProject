@@ -1,7 +1,9 @@
 package com.nestdev.memorypetproject
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,7 +11,6 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import java.sql.Types.NULL
 
 
 class TenWordsViewModel : ViewModel() {
@@ -17,9 +18,13 @@ class TenWordsViewModel : ViewModel() {
     private var resultsCursor: Cursor? = null
     private var resultsArray = Array(5) { 0 }
     private var resultsIndex = 0
+    var trialCounter = 0
+    private var trialsResultsList = mutableListOf<Int>(0, 0, 0, 0, 0)
     private var wordsArray : MutableList<String?>? = ArrayList()
-    private val mutableIsCursorReadyFlow = MutableStateFlow<Boolean>(false)
-    val isCursorReadyFlow: StateFlow<Boolean> = mutableIsCursorReadyFlow
+    private val mutableIsWordsCursorReadyFlow = MutableStateFlow<Boolean>(false)
+    val isWordsCursorReadyFlow: StateFlow<Boolean> = mutableIsWordsCursorReadyFlow
+    private val mutableIsTrialsCursorReadyFlow = MutableStateFlow<Boolean>(false)
+    val isTrialsCursorReadyFlow: StateFlow<Boolean> = mutableIsWordsCursorReadyFlow
     private val mutableListWordsFlow = MutableStateFlow<MutableList<String?>?>(null)
     val listWordsFlow: StateFlow<MutableList<String?>?> = mutableListWordsFlow
 
@@ -34,19 +39,20 @@ class TenWordsViewModel : ViewModel() {
     var counter = 0
 
     fun getCursors(context: Context) {
-        viewModelScope.launch {
-            wordsCursor = context.contentResolver.query(WordsContentProvider.CONTENT_URI,
-                arrayOf(WordsContentProvider._ID, WordsContentProvider.wordsList[0], WordsContentProvider.wordsList[1], WordsContentProvider.wordsList[2],
-                    WordsContentProvider.wordsList[3], WordsContentProvider.wordsList[4], WordsContentProvider.wordsList[5], WordsContentProvider.wordsList[6],
-                    WordsContentProvider.wordsList[7], WordsContentProvider.wordsList[8], WordsContentProvider.wordsList[9]), null, null, WordsContentProvider._ID)
-            mutableIsCursorReadyFlow.emit(true)
+        with(DatabaseContentProvider) {
+            viewModelScope.launch {
+                wordsCursor = context.contentResolver.query(
+                    WORDS_CONTENT_URI,
+                    arrayOf( _ID, wordsList[0], wordsList[1], wordsList[2], wordsList[3], wordsList[4], wordsList[5], wordsList[6], wordsList[7], wordsList[8], wordsList[9]), null, null, _ID)
+                mutableIsWordsCursorReadyFlow.emit(true)
+            }
+            viewModelScope.launch {
+                resultsCursor = context.contentResolver.query(
+                    TRIALS_CONTENT_URI,
+                    arrayOf(_ID, trialsColumnList[0], trialsColumnList[1], trialsColumnList[2], trialsColumnList[3], trialsColumnList[4], trialsColumnList[5], trialsColumnList[6], trialsColumnList[7], trialsColumnList[8], trialsColumnList[9]), null, null, _ID)
+                mutableIsTrialsCursorReadyFlow.emit(true)
+            }
         }
-        //TODO
-//        viewModelScope.launch {
-//            resultsCursor = context.contentResolver.query(TrialsResultsContentProvider.CONTENT_URI,
-//                arrayOf(WordsContentProvider._ID, TrialsResultsContentProvider.)
-//                )
-//        }
     }
 
     fun getWordsSet(rowNumber: Int) {
@@ -61,9 +67,6 @@ class TenWordsViewModel : ViewModel() {
                 }
             }
             mutableListWordsFlow.emit(wordsArray)
-        }
-        viewModelScope.launch {
-            resultsCursor
         }
     }
 
@@ -85,9 +88,31 @@ class TenWordsViewModel : ViewModel() {
         mutableCounterData.value = counter
     }
 
-    fun finishTrial() {
+    fun finishTrial(context: Context) {
+        trialsResultsList[trialCounter] = counter
         counter = 0
-
+        if (trialCounter == 4) {
+            Toast.makeText(context, "Тест окончен!", Toast.LENGTH_LONG).show()
+            context.contentResolver.insert(DatabaseContentProvider.TRIALS_CONTENT_URI, generateContentValuesForTrialsTable())
+            trialCounter = 0
+        }
     }
 
+
+    private fun generateContentValuesForTrialsTable() : ContentValues {
+        val contentValues = ContentValues(9)
+        with(DatabaseContentProvider) {
+            //TODO Добавить добавление данных об испытуемом
+            contentValues.put(trialsColumnList[0], "NO_NAME")  //NAME
+            contentValues.put(trialsColumnList[1], "NO_SURNAME") //SURNAME
+            contentValues.put(trialsColumnList[2], "NO_BIRTHDAY") //BIRTHDAY
+            contentValues.put(trialsColumnList[3], "NO_DATE")   //DATE
+            contentValues.put(trialsColumnList[4], trialsResultsList[0]) //TRIAL_0
+            contentValues.put(trialsColumnList[5], trialsResultsList[1]) //TRIAL_1
+            contentValues.put(trialsColumnList[6], trialsResultsList[2]) //TRIAL_2
+            contentValues.put(trialsColumnList[7], trialsResultsList[3]) //TRIAL_3
+            contentValues.put(trialsColumnList[8], trialsResultsList[4]) //TRIAL_DEFERRED
+        }
+        return contentValues
+    }
 }

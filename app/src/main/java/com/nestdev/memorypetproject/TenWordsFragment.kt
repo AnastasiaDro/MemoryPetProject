@@ -22,8 +22,8 @@ class TenWordsFragment : Fragment() {
     private var _binding: FragmentTenWordsBinding? = null
     private val binding get() = _binding!!
     private lateinit var tableRowList: MutableList<TableRow>
+    private var isTrialsCursorReady = false
     private var counter = 0
-    private var trialCounter = 0
     private var currentWordIndex = -1
     private lateinit var currentTextView: TextView
     private lateinit var finishTrialBtn: Button
@@ -71,7 +71,7 @@ class TenWordsFragment : Fragment() {
         initButtons()
         initTextViewArrays()
         setTableClickListeners()
-        makeCurrentClickable(trialCounter)
+        makeCurrentClickable()
         val unCheckedWord = getString(R.string.forgotten_word)
         viewModel.counterData.observe(viewLifecycleOwner) {
             if (currentTextView.text == unCheckedWord) {
@@ -85,7 +85,7 @@ class TenWordsFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            viewModel.isCursorReadyFlow.collect {
+            viewModel.isWordsCursorReadyFlow.collect {
                 if (it) {
                     //TODO: rowNumber по умолчанию будет ноль, но в меню можно будет менять список
                     viewModel.getWordsSet(1)
@@ -93,11 +93,16 @@ class TenWordsFragment : Fragment() {
             }
         }
         lifecycleScope.launch {
+            viewModel.isTrialsCursorReadyFlow.collect {
+                    isTrialsCursorReady = true
+                }
+            }
+        lifecycleScope.launch {
             viewModel.listWordsFlow.collect {
                 updateWordsSet(it)
             }
         }
-        viewModel.getWordsCursor(view.context)
+        viewModel.getCursors(view.context)
     }
 
     private fun updateWordsSet(wordsArray: MutableList<String?>?) {
@@ -118,11 +123,11 @@ class TenWordsFragment : Fragment() {
         }
     }
 
-    private fun makeCurrentClickable(trialNum: Int) {
-        if (trialNum < 5) {
-            if (trialNum > 0)
-                allTrialsArray[trialNum - 1].forEach { it.isClickable = false }
-            allTrialsArray[trialNum].forEach { it.isClickable = true }
+    private fun makeCurrentClickable() {
+        if (viewModel.trialCounter < 5) {
+            if (viewModel.trialCounter > 0)
+                allTrialsArray[viewModel.trialCounter - 1].forEach { it.isClickable = false }
+            allTrialsArray[viewModel.trialCounter].forEach { it.isClickable = true }
         }
     }
 
@@ -133,9 +138,8 @@ class TenWordsFragment : Fragment() {
     private fun initButtons() {
         with(binding) {
             finishStringBtn.setOnClickListener {
-                makeCurrentClickable(trialCounter)
-                trialCounter++
-                viewModel.finishTrial()
+                makeCurrentClickable()
+                viewModel.finishTrial(requireContext())
             }
         }
 
