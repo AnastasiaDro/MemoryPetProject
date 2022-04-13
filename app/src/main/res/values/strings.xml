@@ -2,4 +2,8 @@
     <string name="app_name">MemoryPetProject</string>
     <string name="finish_trial">Строка</string>
     <string name="forgotten_word">-</string>
+    <string name="enter_name_hint">Имя</string>
+    <string name="enter_surname_hint">Фамилия</string>
+    <string name="enter_birthday_date_hint">Дата рождения</string>
+    <string name="start">Начать</string>
 </resources>
