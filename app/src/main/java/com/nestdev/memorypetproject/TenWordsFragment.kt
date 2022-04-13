@@ -138,8 +138,8 @@ class TenWordsFragment : Fragment() {
     private fun initButtons() {
         with(binding) {
             finishStringBtn.setOnClickListener {
-                makeCurrentClickable()
                 viewModel.finishTrial(requireContext())
+                makeCurrentClickable()
             }
         }
 

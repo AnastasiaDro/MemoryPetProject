@@ -49,7 +49,7 @@ class TenWordsViewModel : ViewModel() {
             viewModelScope.launch {
                 resultsCursor = context.contentResolver.query(
                     TRIALS_CONTENT_URI,
-                    arrayOf(_ID, trialsColumnList[0], trialsColumnList[1], trialsColumnList[2], trialsColumnList[3], trialsColumnList[4], trialsColumnList[5], trialsColumnList[6], trialsColumnList[7], trialsColumnList[8], trialsColumnList[9]), null, null, _ID)
+                    arrayOf(_ID, trialsColumnList[0], trialsColumnList[1], trialsColumnList[2], trialsColumnList[3], trialsColumnList[4], trialsColumnList[5], trialsColumnList[6], trialsColumnList[7], trialsColumnList[8]), null, null, _ID)
                 mutableIsTrialsCursorReadyFlow.emit(true)
             }
         }
@@ -83,7 +83,9 @@ class TenWordsViewModel : ViewModel() {
             Toast.makeText(context, "Тест окончен!", Toast.LENGTH_LONG).show()
             context.contentResolver.insert(DatabaseContentProvider.TRIALS_CONTENT_URI, generateContentValuesForTrialsTable())
             trialCounter = 0
+            return
         }
+        trialCounter++
     }
 
 
