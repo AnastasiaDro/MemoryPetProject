@@ -70,18 +70,6 @@ class TenWordsViewModel : ViewModel() {
         }
     }
 
-
-
-    fun onStringFinishingPressed(result: Int) {
-        if (resultsIndex < 5)  {
-            resultsArray[resultsIndex] = result
-            resultsIndex++
-        } else {
-            //TODO отправить в базу данных
-        }
-    }
-
-
     fun onTextViewPressed() {
         if (counter < 10)
             counter++
