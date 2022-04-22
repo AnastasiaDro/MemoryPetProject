@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class DBWordsTable (
+data class WordsTable (
     @PrimaryKey val _id: Int,
     @ColumnInfo(name = "word_0") val word0: String,
     @ColumnInfo(name = "word_1") val word1: String,
