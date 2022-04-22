@@ -73,3 +73,4 @@ class DatabaseContentProvider : ContentProvider() {
         return tableName
     }
 }
+//закрыть базу данных открыть закрыть в каждой функции передачи данных, посмотреть рекомендации

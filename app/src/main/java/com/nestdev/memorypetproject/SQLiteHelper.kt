@@ -18,6 +18,7 @@ class SQLiteHelper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null,
 
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
         TODO("Not yet implemented")
+        //дропнуть базу данных
     }
 
     private fun createWordsSetTable(db: SQLiteDatabase?) {

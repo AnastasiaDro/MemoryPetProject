@@ -1,4 +1,4 @@
-package com.nestdev.memorypetproject
+package com.nestdev.memorypetproject.viewModels
 
 import android.content.ContentValues
 import android.content.Context
@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nestdev.memorypetproject.DatabaseContentProvider
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -43,13 +44,15 @@ class TenWordsViewModel : ViewModel() {
             viewModelScope.launch {
                 wordsCursor = context.contentResolver.query(
                     WORDS_CONTENT_URI,
-                    arrayOf( _ID, wordsList[0], wordsList[1], wordsList[2], wordsList[3], wordsList[4], wordsList[5], wordsList[6], wordsList[7], wordsList[8], wordsList[9]), null, null, _ID)
+                    arrayOf( _ID, wordsList[0], wordsList[1], wordsList[2], wordsList[3], wordsList[4], wordsList[5], wordsList[6], wordsList[7], wordsList[8], wordsList[9]), null, null, _ID
+                )
                 mutableIsWordsCursorReadyFlow.emit(true)
             }
             viewModelScope.launch {
                 resultsCursor = context.contentResolver.query(
                     TRIALS_CONTENT_URI,
-                    arrayOf(_ID, trialsColumnList[0], trialsColumnList[1], trialsColumnList[2], trialsColumnList[3], trialsColumnList[4], trialsColumnList[5], trialsColumnList[6], trialsColumnList[7], trialsColumnList[8]), null, null, _ID)
+                    arrayOf(_ID, trialsColumnList[0], trialsColumnList[1], trialsColumnList[2], trialsColumnList[3], trialsColumnList[4], trialsColumnList[5], trialsColumnList[6], trialsColumnList[7], trialsColumnList[8]), null, null, _ID
+                )
                 mutableIsTrialsCursorReadyFlow.emit(true)
             }
         }

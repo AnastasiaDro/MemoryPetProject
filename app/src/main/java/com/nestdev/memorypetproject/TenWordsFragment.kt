@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.nestdev.memorypetproject.databinding.FragmentTenWordsBinding
+import com.nestdev.memorypetproject.viewModels.TenWordsViewModel
 import kotlinx.coroutines.launch
 
 class TenWordsFragment : Fragment() {
@@ -142,7 +143,6 @@ class TenWordsFragment : Fragment() {
                 makeCurrentClickable()
             }
         }
-
     }
 
     private fun setClickListenerToArrayElems(arr: Array<TextView>) {

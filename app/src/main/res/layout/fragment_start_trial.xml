@@ -42,7 +42,7 @@
         android:hint="@string/enter_birthday_date_hint"/>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/startTrialBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/input_data_margins"
