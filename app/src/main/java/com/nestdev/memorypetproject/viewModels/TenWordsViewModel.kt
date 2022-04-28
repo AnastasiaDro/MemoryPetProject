@@ -8,9 +8,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.room.Room
 import com.nestdev.memorypetproject.DatabaseContentProvider
+import com.nestdev.memorypetproject.roomDatabase.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
 
@@ -28,6 +31,14 @@ class TenWordsViewModel : ViewModel() {
     val isTrialsCursorReadyFlow: StateFlow<Boolean> = mutableIsWordsCursorReadyFlow
     private val mutableListWordsFlow = MutableStateFlow<MutableList<String?>?>(null)
     val listWordsFlow: StateFlow<MutableList<String?>?> = mutableListWordsFlow
+    private lateinit var wordsLists: MutableList<WordsTable>
+
+    /**
+     * Room DataBase
+     */
+    private lateinit var db: DataBase
+    private lateinit var wordsTableDao: WordsTableDao
+    private lateinit var trialsTableDao: TrialsTableDao
 
     private val mutableActiveTrialLiveData by lazy {
         MutableLiveData<Int>()
@@ -58,20 +69,41 @@ class TenWordsViewModel : ViewModel() {
         }
     }
 
-    fun getWordsSet(rowNumber: Int) {
-        viewModelScope.launch {
-            wordsCursor?.moveToFirst()
-            for (i in 0 until rowNumber) //сеты слов будут нумероваться с 1
-                wordsCursor?.moveToNext()
-            if (wordsCursor != null) {
-                for (i in 0..9) {
-                    println(wordsCursor?.getString(i + 1))
-                    wordsArray?.add(i, wordsCursor?.getString(i + 1))
-                }
-            }
-            mutableListWordsFlow.emit(wordsArray)
-        }
+    /**
+     * Инициализация базы данных
+     */
+    fun initDatabase(context: Context) {
+        db = Room.databaseBuilder(
+            context,
+            DataBase::class.java, "database-name"
+        ).build()
     }
+
+    fun initDaos()
+    {
+        wordsTableDao = db.wordsTableDao()
+        trialsTableDao = db.trialsTableDao()
+    }
+
+    fun getWordsSet(setNumber: Int) {
+        wordsLists = wordsTableDao.getAll()
+//        //suspend fun <T> Flow<T>.toList(destination: MutableList<T> = ArrayList()): List<T>
+//        val flow = flow<MutableList<WordsTable>> {
+//            wordsLists = wordsTableDao.getAll()
+//            emit(wordsLists)
+//        }
+
+//        viewModelScope.launch {
+//            wordsLists = wordsTableDao.getAll()
+//            wordsArray = arrayListOf(wordsLists[setNumber].word0, wordsLists[setNumber].word1,
+//                wordsLists[setNumber].word2, wordsLists[setNumber].word3, wordsLists[setNumber].word4,
+//                wordsLists[setNumber].word5, wordsLists[setNumber].word6, wordsLists[setNumber].word7,
+//                wordsLists[setNumber].word8, wordsLists[setNumber].word9)
+//            mutableListWordsFlow.emit(wordsArray)
+//        }
+    }
+
+
 
     fun onTextViewPressed() {
         if (counter < 10)

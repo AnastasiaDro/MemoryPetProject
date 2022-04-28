@@ -8,7 +8,7 @@ import androidx.room.Query
 @Dao
 interface WordsTableDao {
     @Query("SELECT * FROM wordsTable")
-    fun getAll(): List<WordsTable>
+    fun getAll(): MutableList<WordsTable>
 
     @Query("SELECT * FROM wordsTable WHERE _id IN (:userIds)")
     fun loadAllByIds(userIds: IntArray): List<WordsTable>

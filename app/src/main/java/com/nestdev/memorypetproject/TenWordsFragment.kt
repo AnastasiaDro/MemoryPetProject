@@ -30,6 +30,11 @@ class TenWordsFragment : Fragment() {
     private lateinit var finishTrialBtn: Button
 
     /**
+     * Создание базы данных
+     */
+
+
+    /**
      * Слова
      */
     private lateinit var wordsArray: List<String>
@@ -69,6 +74,11 @@ class TenWordsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.initDatabase(view.context)
+        viewModel.initDaos()
+        viewModel.getWordsSet(0)
+
+
         initButtons()
         initTextViewArrays()
         setTableClickListeners()
@@ -85,14 +95,14 @@ class TenWordsFragment : Fragment() {
             }
         }
 
-        lifecycleScope.launch {
-            viewModel.isWordsCursorReadyFlow.collect {
-                if (it) {
-                    //TODO: rowNumber по умолчанию будет ноль, но в меню можно будет менять список
-                    viewModel.getWordsSet(1)
-                }
-            }
-        }
+//        lifecycleScope.launch {
+//            viewModel.isWordsCursorReadyFlow.collect {
+//                if (it) {
+//                    //TODO: rowNumber по умолчанию будет ноль, но в меню можно будет менять список
+//                    viewModel.getWordsSet(1)
+//                }
+//            }
+//        }
         lifecycleScope.launch {
             viewModel.isTrialsCursorReadyFlow.collect {
                     isTrialsCursorReady = true
