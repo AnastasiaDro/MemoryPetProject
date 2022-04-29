@@ -6,19 +6,16 @@ import androidx.room.Insert
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
-typealias wordsTable =  WORDS_SET_TABLE
 
 @Dao
 interface WordsTableDao {
-    @Query("SELECT * FROM words_set_table")
-    fun getAll(): Flow<List<wordsTable>>
+    @Query("SELECT * FROM wordsTable")
+    fun getAll(): Flow<List<WordsTable>>
 
-    @Query("SELECT * FROM words_set_table WHERE _id = :id")
-    fun loadAllById(id: Int): Flow<wordsTable>
+    @Query("SELECT * FROM wordsTable WHERE _id = :id")
+    fun loadAllById(id: Int): Flow<WordsTable>
 
-    @Insert
-    fun insertAll(vararg users: wordsTable)
 
     @Delete
-    fun delete(wordsTable: WORDS_SET_TABLE)
+    fun delete(wordsTable: WordsTable)
 }
