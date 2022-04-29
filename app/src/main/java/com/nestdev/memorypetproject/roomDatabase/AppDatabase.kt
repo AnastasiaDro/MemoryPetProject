@@ -26,8 +26,8 @@ abstract class AppDatabase : RoomDatabase () {
                     AppDatabase::class.java,
                     "app_database"
                 )
-                    .addCallback(rdc)
-                    .createFromAsset("memory_app_database.db")
+                    //.addCallback(rdc)
+                    .createFromAsset("database/memory_app_database.db")
                     .build()
                 INSTANCE = instance
 
