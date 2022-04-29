@@ -27,7 +27,7 @@ abstract class AppDatabase : RoomDatabase () {
                     "app_database"
                 )
                     .addCallback(rdc)
-                    //.createFromAsset("database/memory.db")
+                    .createFromAsset("memory_app_database.db")
                     .build()
                 INSTANCE = instance
 
