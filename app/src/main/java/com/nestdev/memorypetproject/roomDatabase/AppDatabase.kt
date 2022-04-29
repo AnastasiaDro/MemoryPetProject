@@ -26,11 +26,10 @@ abstract class AppDatabase : RoomDatabase () {
                     AppDatabase::class.java,
                     "app_database"
                 )
-                    .addCallback(rdc)
-                    //.createFromAsset("database/memory.db")
+                    //.addCallback(rdc)
+                    .createFromAsset("database/memory_app_database.db")
                     .build()
                 INSTANCE = instance
-
                 instance
             }
         }
@@ -42,6 +41,7 @@ abstract class AppDatabase : RoomDatabase () {
                 createWordsSetTable(db)
                 createResultsTable(db)
             }
+
         }
 
         private fun createWordsSetTable(db: SupportSQLiteDatabase?) {
