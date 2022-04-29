@@ -3,6 +3,7 @@
     package="com.nestdev.memorypetproject">
 
     <application
+        android:name="com.nestdev.memorypetproject.MemoryPetProjectApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

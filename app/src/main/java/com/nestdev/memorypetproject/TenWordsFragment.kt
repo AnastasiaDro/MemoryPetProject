@@ -9,15 +9,24 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import com.nestdev.memorypetproject.databinding.FragmentTenWordsBinding
+import com.nestdev.memorypetproject.roomDatabase.WordsTable
 import com.nestdev.memorypetproject.viewModels.TenWordsViewModel
+import com.nestdev.memorypetproject.viewModels.TenWordsViewModelFactory
 import kotlinx.coroutines.launch
 
 class TenWordsFragment : Fragment() {
-    private val viewModel by viewModels<TenWordsViewModel>()
+    private val viewModel: TenWordsViewModel  by activityViewModels {
+       TenWordsViewModelFactory(
+           (activity?.application as MemoryPetProjectApplication).database.wordsTableDao()
+       )
+    }
+
 
     private lateinit var trialTable: TableLayout
     private var _binding: FragmentTenWordsBinding? = null
@@ -37,7 +46,7 @@ class TenWordsFragment : Fragment() {
     /**
      * Слова
      */
-    private lateinit var wordsArray: List<String>
+    private lateinit var wordsTableRow: WordsTable
     private lateinit var wordsTextViewArray: Array<TextView>
 
     /**
@@ -76,9 +85,9 @@ class TenWordsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.initDatabase(view.context)
         viewModel.initDaos()
-        viewModel.getWordsSet(0)
+      //  viewModel.getWordsSet(0)
 
-
+        loadWordsSet(-1)
         initButtons()
         initTextViewArrays()
         setTableClickListeners()
@@ -108,17 +117,30 @@ class TenWordsFragment : Fragment() {
                     isTrialsCursorReady = true
                 }
             }
-        lifecycleScope.launch {
-            viewModel.listWordsFlow.collect {
-                updateWordsSet(it)
-            }
-        }
+//        lifecycleScope.launch {
+//            viewModel.listWordsFlow.collect {
+//                updateWordsSet(it)
+//            }
+//        }
+
         viewModel.getCursors(view.context)
     }
 
     private fun updateWordsSet(wordsArray: MutableList<String?>?) {
         for (index in wordsTextViewArray.indices) {
             wordsTextViewArray[index].text = wordsArray?.get(index) ?: "null"
+        }
+    }
+
+    private fun loadWordsSet(index: Int) {
+        var setNum = 0
+        if (index >= 0)
+            setNum  = index
+        lifecycle.coroutineScope.launch {
+            viewModel.fullWordsSet(setNum).collect {
+                wordsTableRow = it
+                println("here")
+            }
         }
     }
 

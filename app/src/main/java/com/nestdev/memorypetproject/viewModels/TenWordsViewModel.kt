@@ -4,20 +4,18 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.widget.Toast
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.room.Room
 import com.nestdev.memorypetproject.DatabaseContentProvider
 import com.nestdev.memorypetproject.roomDatabase.*
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
 
-class TenWordsViewModel : ViewModel() {
+class TenWordsViewModel(private val wordsTableDao: WordsTableDao) : ViewModel() {
     private var wordsCursor: Cursor? = null
     private var resultsCursor: Cursor? = null
     private var resultsArray = Array(5) { 0 }
@@ -25,19 +23,16 @@ class TenWordsViewModel : ViewModel() {
     var trialCounter = 0
     private var trialsResultsList = mutableListOf<Int>(0, 0, 0, 0, 0)
     private var wordsArray : MutableList<String?>? = ArrayList()
-    private val mutableIsWordsCursorReadyFlow = MutableStateFlow<Boolean>(false)
-    val isWordsCursorReadyFlow: StateFlow<Boolean> = mutableIsWordsCursorReadyFlow
+
     private val mutableIsTrialsCursorReadyFlow = MutableStateFlow<Boolean>(false)
-    val isTrialsCursorReadyFlow: StateFlow<Boolean> = mutableIsWordsCursorReadyFlow
-    private val mutableListWordsFlow = MutableStateFlow<MutableList<String?>?>(null)
-    val listWordsFlow: StateFlow<MutableList<String?>?> = mutableListWordsFlow
-    private lateinit var wordsLists: MutableList<WordsTable>
+    val isTrialsCursorReadyFlow: StateFlow<Boolean> = mutableIsTrialsCursorReadyFlow
+
+
 
     /**
      * Room DataBase
      */
-    private lateinit var db: DataBase
-    private lateinit var wordsTableDao: WordsTableDao
+    private lateinit var db: AppDatabase
     private lateinit var trialsTableDao: TrialsTableDao
 
     private val mutableActiveTrialLiveData by lazy {
@@ -52,13 +47,13 @@ class TenWordsViewModel : ViewModel() {
 
     fun getCursors(context: Context) {
         with(DatabaseContentProvider) {
-            viewModelScope.launch {
-                wordsCursor = context.contentResolver.query(
-                    WORDS_CONTENT_URI,
-                    arrayOf( _ID, wordsList[0], wordsList[1], wordsList[2], wordsList[3], wordsList[4], wordsList[5], wordsList[6], wordsList[7], wordsList[8], wordsList[9]), null, null, _ID
-                )
-                mutableIsWordsCursorReadyFlow.emit(true)
-            }
+//            viewModelScope.launch {
+//                wordsCursor = context.contentResolver.query(
+//                    WORDS_CONTENT_URI,
+//                    arrayOf( _ID, wordsList[0], wordsList[1], wordsList[2], wordsList[3], wordsList[4], wordsList[5], wordsList[6], wordsList[7], wordsList[8], wordsList[9]), null, null, _ID
+//                )
+//                mutableIsWordsCursorReadyFlow.emit(true)
+//            }
             viewModelScope.launch {
                 resultsCursor = context.contentResolver.query(
                     TRIALS_CONTENT_URI,
@@ -75,18 +70,28 @@ class TenWordsViewModel : ViewModel() {
     fun initDatabase(context: Context) {
         db = Room.databaseBuilder(
             context,
-            DataBase::class.java, "database-name"
+            AppDatabase::class.java, "database-name"
         ).build()
     }
 
-    fun initDaos()
-    {
-        wordsTableDao = db.wordsTableDao()
+    fun initDaos() {
         trialsTableDao = db.trialsTableDao()
     }
 
-    fun getWordsSet(setNumber: Int) {
-        wordsLists = wordsTableDao.getAll()
+    fun getAllWordsSets() {
+
+    }
+
+//    fun getWordsSet(setNumber: Int) {
+//        viewModelScope.launch {
+//            wordsTableDao.getAll().collect() {
+//
+//            }
+//        }
+
+
+    fun fullWordsSet(index: Int): Flow<WordsTable> = wordsTableDao.loadAllById(index)
+
 //        //suspend fun <T> Flow<T>.toList(destination: MutableList<T> = ArrayList()): List<T>
 //        val flow = flow<MutableList<WordsTable>> {
 //            wordsLists = wordsTableDao.getAll()
@@ -101,7 +106,7 @@ class TenWordsViewModel : ViewModel() {
 //                wordsLists[setNumber].word8, wordsLists[setNumber].word9)
 //            mutableListWordsFlow.emit(wordsArray)
 //        }
-    }
+
 
 
 
@@ -139,5 +144,17 @@ class TenWordsViewModel : ViewModel() {
             contentValues.put(trialsColumnList[8], trialsResultsList[4]) //TRIAL_DEFERRED
         }
         return contentValues
+    }
+}
+
+class TenWordsViewModelFactory(
+    private val wordsTableDao: WordsTableDao
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(TenWordsViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return TenWordsViewModel(wordsTableDao) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
