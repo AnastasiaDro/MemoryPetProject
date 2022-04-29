@@ -12,12 +12,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.nestdev.memorypetproject.databinding.FragmentTenWordsBinding
 import com.nestdev.memorypetproject.roomDatabase.WordsTable
 import com.nestdev.memorypetproject.viewModels.TenWordsViewModel
 import com.nestdev.memorypetproject.viewModels.TenWordsViewModelFactory
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 class TenWordsFragment : Fragment() {
@@ -133,16 +138,21 @@ class TenWordsFragment : Fragment() {
     }
 
     private fun loadWordsSet(index: Int) {
-        var setNum = 0
-        if (index >= 0)
-            setNum  = index
+
         lifecycle.coroutineScope.launch {
+            var setNum = 1
+            if (index > 1)
+                setNum  = index
             viewModel.fullWordsSet(setNum).collect {
                 wordsTableRow = it
-                println("here")
+                println("here $setNum")
             }
         }
+
     }
+
+
+
 
     private fun initTextViewArrays() {
         with(binding) {
