@@ -17,4 +17,8 @@ data class WordsTable (
     @ColumnInfo(name = "WORD_7") val word7: String?,
     @ColumnInfo(name = "WORD_8") val word8: String?,
     @ColumnInfo(name = "WORD_9") val word9: String?
-)
+) {
+    fun getWordsArray() : Array<String?> {
+        return arrayOf(word0, word1, word2, word3, word4, word5, word6, word7, word8, word9)
+    }
+}

@@ -145,12 +145,15 @@ class TenWordsFragment : Fragment() {
                 setNum  = index
             viewModel.fullWordsSet(setNum).collect {
                 wordsTableRow = it
+                val array = wordsTableRow.getWordsArray()
+                for (index in wordsTextViewArray.indices) {
+                    wordsTextViewArray[index].text = array[index]
+                }
                 println("here $setNum")
             }
         }
 
     }
-
 
 
 
