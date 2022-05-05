@@ -20,6 +20,7 @@ class TenWordsViewModel(private val wordsTableDao: WordsTableDao, private val tr
     private var birthday = LocalDate.now().toString()
     private var date = LocalDate.now().toString()
     private var trialsResultsList = mutableListOf(0, 0, 0, 0, 0)
+    var testStatusMessage = "Строка!"
 
     var trialCounter = 0
 
@@ -56,6 +57,7 @@ class TenWordsViewModel(private val wordsTableDao: WordsTableDao, private val tr
         counter = 0
         if (trialCounter == 4) {
             println("JОКОНЧЕН")
+            testStatusMessage = "Проба окончена!"
             val trial = TrialsTable(0, name, surname, birthday, date, trialsResultsList[0], trialsResultsList[1], trialsResultsList[2], trialsResultsList[3], trialsResultsList[4])
             coroutineScope {
                 trialsTableDao.insert(trial)

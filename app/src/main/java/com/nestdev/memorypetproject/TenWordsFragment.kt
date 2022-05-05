@@ -137,9 +137,7 @@ class TenWordsFragment : Fragment() {
             finishStringBtn.setOnClickListener {
                 viewModel.finishTrial()
                 makeCurrentClickable()
-              //  activity?.runOnUiThread {
-                    Toast.makeText(activity, "Hello", Toast.LENGTH_SHORT).show()
-            //    }
+                Toast.makeText(context, viewModel.testStatusMessage, Toast.LENGTH_SHORT).show()
             }
         }
     }
