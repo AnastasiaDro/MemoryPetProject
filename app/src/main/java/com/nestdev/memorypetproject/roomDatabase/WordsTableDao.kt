@@ -16,7 +16,6 @@ interface WordsTableDao {
     @Query("SELECT * FROM wordsTable WHERE _id = :id")
     fun loadAllById(id: Int): Flow<WordsTable>
 
-
     @Delete
     fun delete(wordsTable: WordsTable)
 }
