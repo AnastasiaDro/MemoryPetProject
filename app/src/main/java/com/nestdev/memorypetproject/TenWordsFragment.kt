@@ -4,32 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TableLayout
-import android.widget.TableRow
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import com.nestdev.memorypetproject.databinding.FragmentTenWordsBinding
 import com.nestdev.memorypetproject.roomDatabase.WordsTable
 import com.nestdev.memorypetproject.viewModels.TenWordsViewModel
 import com.nestdev.memorypetproject.viewModels.TenWordsViewModelFactory
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
+
 class TenWordsFragment : Fragment() {
-    private val viewModel: TenWordsViewModel  by activityViewModels {
-       TenWordsViewModelFactory(
-           (activity?.application as MemoryPetProjectApplication).database.wordsTableDao()
-       )
+    private val viewModel: TenWordsViewModel by activityViewModels {
+        val db = (activity?.application as MemoryPetProjectApplication).database
+        TenWordsViewModelFactory(db.wordsTableDao(), db.trialsTableDao())
     }
 
 
@@ -44,11 +33,6 @@ class TenWordsFragment : Fragment() {
     private lateinit var finishTrialBtn: Button
 
     /**
-     * Создание базы данных
-     */
-
-
-    /**
      * Слова
      */
     private lateinit var wordsTableRow: WordsTable
@@ -57,7 +41,7 @@ class TenWordsFragment : Fragment() {
     /**
      * textView для проб
      */
-    private lateinit var trial0Array : Array<TextView>
+    private lateinit var trial0Array: Array<TextView>
     private lateinit var trial1Array: Array<TextView>
     private lateinit var trial2Array: Array<TextView>
     private lateinit var trial3Array: Array<TextView>
@@ -89,8 +73,6 @@ class TenWordsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.initDatabase(view.context)
-        viewModel.initDaos()
-      //  viewModel.getWordsSet(0)
 
         loadWordsSet(-1)
         initButtons()
@@ -104,26 +86,17 @@ class TenWordsFragment : Fragment() {
             } else {
                 currentTextView.text = unCheckedWord
                 println(viewModel.counter)
-                viewModel.counter-=2
+                viewModel.counter -= 2
                 println(viewModel.counter)
             }
         }
-
-        lifecycleScope.launch {
-            viewModel.isTrialsCursorReadyFlow.collect {
-                    isTrialsCursorReady = true
-                }
-            }
-
-        viewModel.getCursors(view.context)
     }
-
 
     private fun loadWordsSet(index: Int) {
         lifecycle.coroutineScope.launch {
             var setNum = 1
             if (index > 1)
-                setNum  = index
+                setNum = index
             viewModel.fullWordsSet(setNum).collect {
                 wordsTableRow = it
                 val array = wordsTableRow.getWordsArray()
@@ -162,17 +135,19 @@ class TenWordsFragment : Fragment() {
     private fun initButtons() {
         with(binding) {
             finishStringBtn.setOnClickListener {
-                viewModel.finishTrial(requireContext())
+                viewModel.finishTrial()
                 makeCurrentClickable()
+                Toast.makeText(context, viewModel.testStatusMessage, Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     private fun setClickListenerToArrayElems(arr: Array<TextView>) {
-        arr.forEach {  it ->
+        arr.forEach { it ->
             it.setOnClickListener {
                 currentTextView = it as TextView
-                viewModel.onTextViewPressed() }
+                viewModel.onTextViewPressed()
+            }
             it.isClickable = false
         }
     }

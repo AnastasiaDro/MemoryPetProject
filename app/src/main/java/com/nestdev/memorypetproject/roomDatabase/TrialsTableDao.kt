@@ -19,7 +19,7 @@ interface TrialsTableDao {
     fun findByName(first: String, last: String): TrialsTable
 
     @Insert
-    fun insertAll(vararg trials: TrialsTable)
+    suspend fun insert(trial: TrialsTable)
 
     @Delete
     fun delete(trial: TrialsTable)

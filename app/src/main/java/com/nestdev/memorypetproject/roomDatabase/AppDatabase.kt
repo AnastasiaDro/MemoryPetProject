@@ -35,15 +35,6 @@ abstract class AppDatabase : RoomDatabase () {
             }
         }
 
-
-        private val rdc = object : RoomDatabase.Callback() {
-            override fun onCreate(db: SupportSQLiteDatabase) {
-                super.onCreate(db)
-                createWordsSetTable(db)
-                createResultsTable(db)
-            }
-        }
-
         private fun createWordsSetTable(db: SupportSQLiteDatabase?) {
             db?.execSQL("CREATE TABLE IF NOT EXISTS WORDS_SET_TABLE(_id INTEGER PRIMARY KEY AUTOINCREMENT, WORD_0 TEXT, WORD_1 TEXT, WORD_2 TEXT, WORD_3 TEXT, WORD_4 TEXT, WORD_5 TEXT, WORD_6 TEXT, WORD_7 TEXT, WORD_8 TEXT, WORD_9 TEXT)")
             db?.execSQL("INSERT INTO WORDS_SET_TABLE(WORD_0, WORD_1, WORD_2, WORD_3, WORD_4, WORD_5, WORD_6, WORD_7, WORD_8, WORD_9) VALUES('Лес', 'Хлеб', 'Окно', 'Стул', 'Вода', 'Брат', 'Конь', 'Гриб', 'Игла', 'Мёд')")

@@ -7,7 +7,7 @@ import java.util.*
 
 @Entity
 data class TrialsTable (
-    @PrimaryKey val _id: Int,
+    @PrimaryKey(autoGenerate = true) val _id: Int,
     @ColumnInfo(name = "first_name") val firstName: String?,
     @ColumnInfo(name = "last_name") val lastName: String?,
 
