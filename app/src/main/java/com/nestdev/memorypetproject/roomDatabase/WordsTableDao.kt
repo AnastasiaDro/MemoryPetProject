@@ -1,5 +1,6 @@
 package com.nestdev.memorypetproject.roomDatabase
 
+import android.database.Cursor
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -18,4 +19,13 @@ interface WordsTableDao {
 
     @Delete
     fun delete(wordsTable: WordsTable)
+
+    /**
+     * Запросы для экспорта базы данных в другое приложение
+     */
+    @Query("SELECT * FROM wordsTable")
+    fun getAllToCursor(): Cursor
+
+    @Query("SELECT * FROM wordsTable WHERE _id = :id")
+    fun loadAllByIdToCursor(id: Int): Cursor
 }
