@@ -1,4 +1,4 @@
-package com.nestdev.memorypetproject.roomDatabase
+package com.nestdev.memorypetproject.data.roomDatabase
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

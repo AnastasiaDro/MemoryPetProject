@@ -46,6 +46,7 @@ android {
                     "-Xjvm-default=all"]
 
         }
+    namespace 'com.nestdev.memorypetproject'
 
 }
 

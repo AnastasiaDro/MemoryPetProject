@@ -1,4 +1,4 @@
-package com.nestdev.memorypetproject.viewModels
+package com.nestdev.memorypetproject.ui.viewModels
 
 import androidx.lifecycle.ViewModel
 

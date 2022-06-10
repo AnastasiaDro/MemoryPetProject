@@ -1,7 +1,8 @@
-package com.nestdev.memorypetproject
+package com.nestdev.memorypetproject.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.nestdev.memorypetproject.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

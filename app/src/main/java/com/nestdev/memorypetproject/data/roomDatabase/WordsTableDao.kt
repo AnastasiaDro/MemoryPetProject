@@ -1,12 +1,10 @@
-package com.nestdev.memorypetproject.roomDatabase
+package com.nestdev.memorypetproject.data.roomDatabase
 
 import android.database.Cursor
 import androidx.room.Dao
 import androidx.room.Delete
-import androidx.room.Insert
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
 
 @Dao

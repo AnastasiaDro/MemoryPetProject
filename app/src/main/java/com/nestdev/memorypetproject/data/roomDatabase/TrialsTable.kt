@@ -1,4 +1,4 @@
-package com.nestdev.memorypetproject.roomDatabase
+package com.nestdev.memorypetproject.data.roomDatabase
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -7,7 +7,7 @@ import java.util.*
 
 @Entity
 data class TrialsTable (
-    @PrimaryKey(autoGenerate = true) val _id: Int,
+    @PrimaryKey(autoGenerate = true) val _id: Int, //первичный ключ таблицы, ключ связывания foreign key
     @ColumnInfo(name = "first_name") val firstName: String?,
     @ColumnInfo(name = "last_name") val lastName: String?,
 

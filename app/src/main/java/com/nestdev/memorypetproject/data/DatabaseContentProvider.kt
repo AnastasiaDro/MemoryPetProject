@@ -1,4 +1,4 @@
-package com.nestdev.memorypetproject
+package com.nestdev.memorypetproject.data
 
 import android.content.ContentProvider
 import android.content.ContentValues

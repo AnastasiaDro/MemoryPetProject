@@ -1,5 +1,6 @@
-package com.nestdev.memorypetproject.roomDatabase
+package com.nestdev.memorypetproject.data.roomDatabase
 
+import com.nestdev.memorypetproject.domain.TrialsSaver
 import android.database.Cursor
 import androidx.room.Dao
 import androidx.room.Delete
@@ -8,7 +9,7 @@ import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface TrialsTableDao {
+interface TrialsTableDao : TrialsSaver {
     @Query("SELECT * FROM trialsTable")
     fun getAll(): Flow<List<TrialsTable>>
 
@@ -32,4 +33,8 @@ interface TrialsTableDao {
 
     @Query("SELECT * FROM trialsTable WHERE first_name LIKE :first AND last_name LIKE :last LIMIT 1")
     fun findByNameToCursor(first: String, last: String): Cursor
+
+    override suspend fun save(trialsTable: TrialsTable) {
+        insert(trialsTable)
+    }
 }

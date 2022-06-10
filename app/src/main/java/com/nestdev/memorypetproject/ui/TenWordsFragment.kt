@@ -1,4 +1,4 @@
-package com.nestdev.memorypetproject
+package com.nestdev.memorypetproject.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,17 +8,19 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
+import com.nestdev.memorypetproject.MemoryPetProjectApplication
+import com.nestdev.memorypetproject.R
 import com.nestdev.memorypetproject.databinding.FragmentTenWordsBinding
-import com.nestdev.memorypetproject.roomDatabase.WordsTable
-import com.nestdev.memorypetproject.viewModels.TenWordsViewModel
-import com.nestdev.memorypetproject.viewModels.TenWordsViewModelFactory
+import com.nestdev.memorypetproject.data.roomDatabase.WordsTable
+import com.nestdev.memorypetproject.ui.viewModels.TenWordsViewModel
+import com.nestdev.memorypetproject.ui.viewModels.TenWordsViewModelFactory
 import kotlinx.coroutines.launch
 
 
 class TenWordsFragment : Fragment() {
     private val viewModel: TenWordsViewModel by activityViewModels {
         val db = (activity?.application as MemoryPetProjectApplication).database
-        TenWordsViewModelFactory(db.wordsTableDao(), db.trialsTableDao())
+        TenWordsViewModelFactory(db.wordsTableDao(), db.trialsSaver())
     }
 
 

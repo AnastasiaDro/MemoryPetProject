@@ -1,16 +1,19 @@
-package com.nestdev.memorypetproject.viewModels
+package com.nestdev.memorypetproject.ui.viewModels
 
+import com.nestdev.memorypetproject.domain.TrialsSaver
 import android.content.Context
-import android.widget.Toast
 import androidx.lifecycle.*
 import androidx.room.Room
-import com.nestdev.memorypetproject.roomDatabase.*
+import com.nestdev.memorypetproject.data.roomDatabase.AppDatabase
+import com.nestdev.memorypetproject.data.roomDatabase.TrialsTable
+import com.nestdev.memorypetproject.data.roomDatabase.WordsTable
+import com.nestdev.memorypetproject.data.roomDatabase.WordsTableDao
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.runBlocking
 import java.time.LocalDate
 
-class TenWordsViewModel(private val wordsTableDao: WordsTableDao, private val trialsTableDao: TrialsTableDao) : ViewModel() {
+class TenWordsViewModel(private val wordsTableDao: WordsTableDao, private val trialsSaver: TrialsSaver) : ViewModel() {
 
     /**
      * Поля таблицы проб
@@ -60,7 +63,7 @@ class TenWordsViewModel(private val wordsTableDao: WordsTableDao, private val tr
             testStatusMessage = "Проба окончена!"
             val trial = TrialsTable(0, name, surname, birthday, date, trialsResultsList[0], trialsResultsList[1], trialsResultsList[2], trialsResultsList[3], trialsResultsList[4])
             coroutineScope {
-                trialsTableDao.insert(trial)
+                trialsSaver.save(trial)
             }
         }
         trialCounter++
@@ -68,12 +71,12 @@ class TenWordsViewModel(private val wordsTableDao: WordsTableDao, private val tr
 }
 
 class TenWordsViewModelFactory(
-    private val wordsTableDao: WordsTableDao, private val trialsTableDao: TrialsTableDao
+    private val wordsTableDao: WordsTableDao, private val trialsSaver: TrialsSaver
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(TenWordsViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return TenWordsViewModel(wordsTableDao, trialsTableDao) as T
+            return TenWordsViewModel(wordsTableDao, trialsSaver) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

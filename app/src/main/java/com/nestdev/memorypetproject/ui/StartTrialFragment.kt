@@ -1,4 +1,4 @@
-package com.nestdev.memorypetproject
+package com.nestdev.memorypetproject.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.nestdev.memorypetproject.databinding.FragmentStartTrialBinding
-import com.nestdev.memorypetproject.viewModels.StartTrialViewModel
+import com.nestdev.memorypetproject.ui.viewModels.StartTrialViewModel
 
 class StartTrialFragment : Fragment() {
     private val viewModel by viewModels<StartTrialViewModel>()
